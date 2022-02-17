@@ -1,7 +1,0 @@
-# Query
-type Query {
-  a: String
-
-  # B
-  b: String
-}

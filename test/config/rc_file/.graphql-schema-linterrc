@@ -1,9 +1,0 @@
-{
-  "rules": ["enum-values-sorted-alphabetically"],
-  "rulesOptions": {
-    "enum-values-sorted-alphabetically": {
-      "sortOrder": "lexicographical"
-    }
-  },
-  "ignore": {"fields-have-descriptions": ["Obvious", "Query.obvious", "Query.something.obvious"]},
-}

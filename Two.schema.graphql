@@ -1,0 +1,21 @@
+enum TwoEnum {
+    ABC
+}
+
+type TwoType {
+    e: TwoEnum
+    id: ID!
+}
+
+input TwoInput {
+    e: TwoEnum
+    id: ID!
+}
+
+extend type Mutation {
+    updateTwo(input: TwoInput!): TwoType
+}
+
+extend type Query {
+    getTwo(id: ID!): TwoType
+}

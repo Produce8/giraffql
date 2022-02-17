@@ -1,8 +1,0 @@
-type Obvious {
-  one: String!
-  two: Int
-}
-
-type DontPanic {
-  obvious: Boolean
-}

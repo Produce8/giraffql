@@ -156,6 +156,7 @@ function getOptionsFromCommander(commander) {
 
   if (commander.output) {
     options.output = commander.output;
+    options.mergeSchemas = true;
   }
 
   if (commander.configDirectory) {

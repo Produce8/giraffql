@@ -1,0 +1,21 @@
+enum OneEnum {
+    ABC
+}
+
+type OneType {
+    e: OneEnum
+    id: ID!
+}
+
+input OneInput {
+    e: OneEnum
+    id: ID!
+}
+
+extend type Mutation {
+    updateOne(input: OneInput!): OneType
+}
+
+extend type Query {
+    getOne(id: ID!): OneType
+}

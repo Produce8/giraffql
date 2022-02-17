@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "description": "Command line tool and package to merge and validate GraphQL schemas against a set of rules.",
   "author": "brandon-kyle-bailey",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "mocha test/index.js",
-    "prepare": "rm -rf lib/* && babel ./src --ignore test --out-dir ./lib"
+    "prepare": "rm -rf dist/* && babel ./src --ignore test --out-dir ./dist"
   },
   "pkg": {
-    "scripts": "lib/**/*.js"
+    "scripts": "dist/**/*.js"
   },
   "homepage": "https://github.com/Produce8/giraffql",
   "repository": {
@@ -20,11 +20,7 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
-    "@babel/register": "^7.9.0",
-    "husky": "4.3.0",
-    "lint-staged": "10.5.3",
-    "mocha": "8.2.1",
-    "prettier": "2.2.1"
+    "@babel/register": "^7.9.0"
   },
   "babel": {
     "presets": [
@@ -32,7 +28,7 @@
         "@babel/preset-env",
         {
           "targets": {
-            "node": "9.4"
+            "node": "14.18"
           }
         }
       ]
@@ -40,29 +36,14 @@
   },
   "license": "MIT",
   "dependencies": {
-    "chalk": "^2.0.1",
-    "columnify": "^1.5.4",
-    "commander": "^3.0.0",
+    "chalk": "^2.4.2",
+    "columnify": "^1.6.0",
+    "commander": "^3.0.2",
     "cosmiconfig": "^5.2.1",
-    "glob": "^7.1.2",
-    "graphql": "^15.0.0",
-    "graphql-schema-utilities": "^1.1.3"
+    "glob": "^7.2.0",
+    "graphql": "^15.8.0"
   },
   "bin": {
-    "giraffql": "lib/cli.js"
-  },
-  "lint-staged": {
-    "*.{js,json}": [
-      "prettier --write"
-    ]
-  },
-  "prettier": {
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "giraffql": "dist/cli.js"
   }
 }
