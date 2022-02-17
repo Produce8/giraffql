@@ -6,12 +6,6 @@ If you're looking to lint your GraphQL queries, check out this ESLint plugin: [a
 
 ## Install
 
-Yarn:
-
-```
-yarn add giraffql
-```
-
 npm:
 
 ```
@@ -77,76 +71,6 @@ Options:
   -h, --help
 
     output usage information
-```
-
-### Usage with pre-commit Hooks
-
-Using [lint-staged](https://github.com/okonet/lint-staged) and [husky](https://github.com/typicode/husky), you can lint
-your staged GraphQL schema file before you commit. First, install these packages:
-
-```bash
-yarn add --dev lint-staged husky
-```
-
-Then add a `precommit` script and a `lint-staged` key to your `package.json` like so:
-
-```json
-{
-  "scripts": {
-    "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.graphql": ["giraffql path/to/*.graphql"]
-  }
-}
-```
-
-The above configuration assumes that you have either one `schema.graphql` file or multiple `.graphql` files that should
-be concatenated together and linted as a whole.
-
-If your project has `.graphql` query files and `.graphql` schema files, you'll likely need multiple entries in the
-`lint-staged` object - one for queries and one for schema. For example:
-
-```json
-{
-  "scripts": {
-    "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "client/*.graphql": ["eslint . --ext .js --ext .gql --ext .graphql"],
-    "server/*.graphql": ["giraffql server/*.graphql"]
-  }
-}
-```
-
-If you have multiple schemas in the same folder, your `lint-staged` configuration will need to be more specific, otherwise
-`giraffql` will assume they are all parts of one schema. For example:
-
-**Correct:**
-
-```json
-{
-  "scripts": {
-    "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "server/schema.public.graphql": ["giraffql"],
-    "server/schema.private.graphql": ["giraffql"]
-  }
-}
-```
-
-**Incorrect (if you have multiple schemas):**
-
-```json
-{
-  "scripts": {
-    "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "server/*.graphql": ["giraffql"]
-  }
-}
 ```
 
 ## Configuration file
