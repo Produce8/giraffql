@@ -12,11 +12,11 @@ export async function run(stdout, stdin, stderr, argv) {
   const commander = new Command()
     .usage('[options] [schema.graphql ...]')
     .option(
-      '-in, --input </glob/map/to/schema/files>',
+      '--input </glob/map/to/schema/files>',
       'GLOB search pattern to locate the schema files to merge and lint.'
     )
     .option(
-      '-out, --output </desired/output/schema/path>',
+      '--output </desired/output/schema/path>',
       'Path to save the newly merged and linted schema file to.'
     )
     .option(
@@ -48,17 +48,16 @@ export async function run(stdout, stdin, stderr, argv) {
       'path to additional custom rules to be loaded. Example: rules/*.js'
     )
     .option(
+      '-m, --merge-schemas', 
+      'If specified, the schema files will be merged to the location you specify in --output', 
+    )
+    .option(
       '--comment-descriptions',
       'use old way of defining descriptions in GraphQL SDL'
     )
     .option(
       '--old-implements-syntax',
       'use old way of defining implemented interfaces in GraphQL SDL'
-    )
-    .option(
-      '-merge, --merge-schemas',
-      'If specified, the schema files will be merged to the location you specify in --output',
-      false
     )
     .version(version, '--version')
     .parse(argv);
