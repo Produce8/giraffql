@@ -6,6 +6,7 @@ import { loadSchema } from './schema.js';
 import { loadOptionsFromConfigDir } from './options.js';
 import figures from './figures';
 import chalk from 'chalk';
+import { mergeSchemas } from './merger.js';
 
 export async function run(stdout, stdin, stderr, argv) {
   const commander = new Command()
@@ -54,6 +55,11 @@ export async function run(stdout, stdin, stderr, argv) {
       '--old-implements-syntax',
       'use old way of defining implemented interfaces in GraphQL SDL'
     )
+    .option(
+      '-merge, --merge-schemas',
+      'If specified, the schema files will be merged to the location you specify in --output',
+      false
+    )
     .version(version, '--version')
     .parse(argv);
 
@@ -69,7 +75,6 @@ export async function run(stdout, stdin, stderr, argv) {
   }
 
   // TODO Get configs from .graphqlconfig file
-
   const optionsFromCommandLine = getOptionsFromCommander(commander);
   const optionsFromConfig = loadOptionsFromConfigDir(
     optionsFromCommandLine.configDirectory
@@ -116,7 +121,14 @@ export async function run(stdout, stdin, stderr, argv) {
     });
   }
 
-  return errors.length > 0 ? 1 : 0;
+  if(errors.length > 0) {
+    return 1;
+  }
+  let result = 0;
+  if (options.mergeSchemas) {
+    result = mergeSchemas(schema, options.output)
+  }
+  return result;
 }
 
 function groupErrorsBySchemaFilePath(errors, schemaSourceMap) {
@@ -140,7 +152,7 @@ function getOptionsFromCommander(commander) {
   let options = { stdin: commander.stdin };
 
   if (commander.input) {
-    options.schemaPaths = commander.input;
+    options.schemaPaths = commander.input.split(',');
   }
 
   if (commander.output) {
@@ -190,6 +202,8 @@ function getOptionsFromCommander(commander) {
   if (commander.args && commander.args.length) {
     options.schemaPaths = [...options.schemaPaths, commander.args];
   }
-
+  if (commander.mergeSchemas) {
+    options.mergeSchemas = true;
+  }
   return options;
 }
